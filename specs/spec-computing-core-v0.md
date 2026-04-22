@@ -204,7 +204,7 @@ Ports are first-class nodes whose primary identity is transport plus port number
 The important durable field on a port is its port number. In v0, the plugin should support:
 
 - well-known and registered server-side ports
-- client-side ephemeral or unknown ports represented using the convention `port_number = 0`
+- client-side ephemeral or unknown ports represented using the convention `port_number = null`
 - a simple port state field distinct from the numeric port identity
 
 The v0 port state vocabulary should stay intentionally small:
@@ -228,7 +228,7 @@ This is important because some data sources, such as network scanners, may obser
 | ACID | Title | Status | Description | Notes |
 | --- | --- | :---: | --- | --- |
 | req-computing-core-ports-1 | Port Node Exists | Proposed | Ports are modeled as nodes, not only as integers embedded in other records. | |
-| req-computing-core-ports-2 | Ephemeral Convention | Proposed | `port_number = 0` may represent wildcard, ephemeral, or unknown client-side ports in v0. | |
+| req-computing-core-ports-2 | Ephemeral Convention | Proposed | `port_number = null` may represent wildcard, ephemeral, or unknown client-side ports in v0. | |
 | req-computing-core-ports-3 | Separate Port State | Proposed | Port state is modeled separately from the port number. | |
 | req-computing-core-ports-4 | Interface Optional For Observation | Proposed | A port may be related directly to an IP address even when no concrete network interface is known. | |
 
