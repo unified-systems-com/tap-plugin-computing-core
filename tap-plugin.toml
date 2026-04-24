@@ -11,6 +11,8 @@ port = "plugins.computing_core.models.port.Port"
 tcp_connection = "plugins.computing_core.models.tcp_connection.TcpConnection"
 program = "plugins.computing_core.models.program.Program"
 file = "plugins.computing_core.models.file.File"
+public_key = "plugins.computing_core.models.public_key.PublicKey"
+private_key = "plugins.computing_core.models.private_key.PrivateKey"
 
 [edges]
 HOSTS = "edges/HOSTS.edge.json"
@@ -19,6 +21,7 @@ HAS_IP = "edges/HAS_IP.edge.json"
 AVAILABLE_AT = "edges/AVAILABLE_AT.edge.json"
 LISTENS_ON = "edges/LISTENS_ON.edge.json"
 CONNECTS_TO = "edges/CONNECTS_TO.edge.json"
+PAIRED_WITH = "edges/PAIRED_WITH.edge.json"
 
 [grift]
 dimension = "grift/dimension.grift.json"
