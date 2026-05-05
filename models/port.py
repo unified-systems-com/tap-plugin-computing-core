@@ -18,7 +18,8 @@ class Port(BaseModel):
     DEFAULT_DISPLAY: ClassVar[dict[str, Any]] = {
         "tap_viz": {
             "shape": "rectangle",
-            "colors": {"fill": "#8E7EB2", "border": "#5C4E82", "label": "#FFFFFF"},
+            "colors": {"fill": "#8E7EB2", "border": "#5C4E82", "label": "#3E2A5F"},
+            "label": {"valign": "center", "halign": "center", "position": "inside"},
         }
     }
 

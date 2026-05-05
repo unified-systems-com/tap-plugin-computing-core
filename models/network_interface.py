@@ -19,6 +19,7 @@ class NetworkInterface(BaseModel):
         "tap_viz": {
             "shape": "rectangle",
             "colors": {"fill": "#6B8E8E", "border": "#3D5C5C", "label": "#FFFFFF"},
+            "label": {"valign": "top", "halign": "center", "position": "inside"},
         }
     }
 
