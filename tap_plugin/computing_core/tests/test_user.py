@@ -6,8 +6,8 @@ display-name projection onto Entity.name, and default dimensions.
 """
 
 import pytest
-
 import tap_plugin.computing_core.models as computing  # noqa: F401 — trigger model registration
+
 from tap_grid.models import Entity
 from tap_grid.registry import get_model_class
 from tap_grid.services import create_node
