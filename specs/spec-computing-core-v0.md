@@ -40,6 +40,7 @@ Networking is an especially important part of this layer. v0 should model the st
 ### Plugin Scope
 ----
 RID: `req-computing-core-scope`
+
 Status: `Proposed`
 
 The Computing Core plugin models modern computing infrastructure primitives above hardware and below provider-specific cloud resources and higher-level product/application abstractions.
@@ -79,6 +80,7 @@ Later work may split networking and protocol concerns into dedicated plugins or 
 ### IP Version Support
 ----
 RID: `req-computing-core-ip`
+
 Status: `Proposed`
 
 IPv6 is a first-class supported capability alongside IPv4.
@@ -105,6 +107,7 @@ IPv6 support should not be treated as an afterthought or left to provider-specif
 ### Dimension Strategy
 ----
 RID: `req-computing-core-dimensions`
+
 Status: `Proposed`
 
 Every TAP-managed type in the plugin uses meaningful `tap.computing` default dimensions, and the plugin experiments with explicit dimension nodes to document those categories.
@@ -154,6 +157,7 @@ Should `tap.computing` values be a tightly closed vocabulary enforced by validat
 ### Model Catalog
 ----
 RID: `req-computing-core-models`
+
 Status: `Proposed`
 
 The plugin declares vendor-neutral TAP-managed models organized by compute, runtime, storage, and networking concerns.
@@ -218,6 +222,7 @@ This is intentionally simpler than trying to model every possible runtime or orc
 ### Port Modeling
 ----
 RID: `req-computing-core-ports`
+
 Status: `Proposed`
 
 Ports are first-class nodes whose primary identity is transport plus port number.
@@ -261,6 +266,7 @@ This is important because some data sources, such as network scanners, may obser
 ### Network Interface Modeling
 ----
 RID: `req-computing-core-interface`
+
 Status: `Proposed`
 
 A `network_interface` models an operating-system-level interface (`eth0`, a virtual equivalent). Its hardware address is carried by `mac_address`, which is a concrete application of the grid-wide field-observation convention (`tap_grid` `req-grid-node-observation`): a data source may observe an interface without its MAC — a scanner that sees the interface name but never captures the hardware address — so the field uses `mac_address = null` to mean **"hardware address unobserved or not applicable"**, distinct from `""`. This is the same convention `port_number = null` applies (`req-computing-core-ports-2`); both defer to the grid requirement for the full taxonomy, the FLIP known-vs-unknown-unknown hinge, and the lint-deviation rule.
@@ -276,6 +282,7 @@ A `network_interface` models an operating-system-level interface (`eth0`, a virt
 ### TCP Connection Modeling
 ----
 RID: `req-computing-core-tcp`
+
 Status: `Proposed`
 
 TCP connections are modeled as nodes rather than direct edges.
@@ -314,6 +321,7 @@ Consider a future `udp_flow` model if real use cases emerge, and consider whethe
 ### Protocol Scope
 ----
 RID: `req-computing-core-protocols`
+
 Status: `Proposed`
 
 v0 stops just above layer four and does not yet commit to concrete application protocols.
@@ -334,6 +342,7 @@ This keeps the plugin usable for connection and dependency modeling without forc
 ### Edge Types
 ----
 RID: `req-computing-core-edges`
+
 Status: `Proposed`
 
 The plugin favors a small but expressive edge family over generic catch-all edges.
@@ -398,6 +407,7 @@ Should `AVAILABLE_AT` be interpreted strictly as an observed externally reachabl
 ### Reference Data
 ----
 RID: `req-computing-core-reference`
+
 Status: `Proposed`
 
 The plugin may seed small but useful generic reference data.
@@ -418,6 +428,7 @@ The plugin may later seed small generic vocabularies such as TCP states or proto
 ### Plugin Validation
 ----
 RID: `req-computing-core-validation`
+
 Status: `Proposed`
 
 The plugin should pass TAP's centralized plugin validation system and encourage deeper validation before public release.
@@ -441,6 +452,7 @@ This matters especially for a plugin with many concrete models, where importabil
 ### v0 Non-Goals
 ----
 RID: `req-computing-core-nongoals`
+
 Status: `Proposed`
 
 This specification does not define:
