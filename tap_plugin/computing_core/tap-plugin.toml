@@ -1,5 +1,6 @@
 manifest_version = "0"
 plugin_version = "0.1.0"
+requires_tap = ">=0.1.5"
 slug = "computing_core"
 name = "TAP Computing Core"
 description = "Vendor-neutral primitives for modern computing systems: interfaces, addresses, ports, connections, programs, and files."
