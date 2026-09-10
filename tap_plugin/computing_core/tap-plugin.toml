@@ -1,5 +1,6 @@
 manifest_version = "0"
 plugin_version = "0.1.0"
+requires_tap = ">=0.1.5"
 slug = "computing_core"
 name = "TAP Computing Core"
 description = "Vendor-neutral primitives for modern computing systems: interfaces, addresses, ports, connections, programs, and files."
@@ -24,3 +25,8 @@ FETCHES_DOCUMENT__computing_core = "edges/FETCHES_DOCUMENT.edge.json"
 
 [grift]
 dimension = "grift/dimension.grift.json"
+
+[[boot.records]]
+name = "ci"
+description = "RESERVED NAME (req-boot-bootstrap-ci-record): the stack this plugin's own tests run in — depends_on closure + self, offline, credential-free. The consumer flips self to editable."
+sha256 = "ea6876be1fb671341546fa87c1d2465286e02375494cca577d3af027efdef0d6"
