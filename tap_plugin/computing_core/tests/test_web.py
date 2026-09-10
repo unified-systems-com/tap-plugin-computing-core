@@ -1,7 +1,7 @@
 """Domain-specific tests for the web-native Computing Core types.
 
 `web_host` and `web_document` (req-computing-core-models-6) plus the
-`HOSTED_BY` / `FETCHES` edges. These cover service-layer creation, required
+`HOSTS_DOCUMENT` / `FETCHES_DOCUMENT` edges. These cover service-layer creation, required
 fields, display projection, the `tap.web` web-native marker
 (req-computing-core-web-marker), and that the edges connect.
 """
@@ -75,15 +75,16 @@ class TestWebDocument:
 
 @pytest.mark.django_db
 class TestWebEdges:
-    def test_hosted_by_connects_document_to_host(self):
+    def test_hosts_document_connects_host_to_document(self):
         host = _create("computing_core__web_host", {"hostname": "www.cisa.gov"})
         doc = _create("computing_core__web_document", {"url": "https://www.cisa.gov/feed.json"})
-        edge = create_edge(doc.entity, host.entity, "HOSTED_BY__computing_core")
-        assert edge.edge_type == "HOSTED_BY__computing_core"
+        # The host is the actor: edge points host -> document.
+        edge = create_edge(host.entity, doc.entity, "HOSTS_DOCUMENT__computing_core")
+        assert edge.edge_type == "HOSTS_DOCUMENT__computing_core"
 
-    def test_fetches_targets_a_web_document(self):
+    def test_fetches_document_targets_a_web_document(self):
         doc = _create("computing_core__web_document", {"url": "https://www.cisa.gov/feed.json"})
         # Source is wildcard; a file node stands in for an arbitrary fetcher here.
         fetcher = _create("computing_core__file", {"file_path": "/tmp/fetcher"})
-        edge = create_edge(fetcher.entity, doc.entity, "FETCHES__computing_core")
-        assert edge.edge_type == "FETCHES__computing_core"
+        edge = create_edge(fetcher.entity, doc.entity, "FETCHES_DOCUMENT__computing_core")
+        assert edge.edge_type == "FETCHES_DOCUMENT__computing_core"
