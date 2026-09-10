@@ -353,9 +353,17 @@ The plugin favors a small but expressive edge family over generic catch-all edge
 > edge types, not a built inventory. Seven scaffolded-but-never-emitted edge definitions
 > (`HOSTS`, `RUNS_ON`, `HAS_IP`, `AVAILABLE_AT`, `LISTENS_ON`, `CONNECTS_TO`, `PAIRED_WITH`)
 > were deleted rather than frozen into the release tag as speculative surface. The only
-> edges computing_core actually ships today are the ones its collector emits / seeds:
-> `FETCHES`, `GENERATES_FILE`, `HOSTED_BY`. The candidates below return — correctly named
+> edges computing_core actually ships today are the ones consumers emit / seed:
+> `FETCHES_DOCUMENT`, `GENERATES_FILE`, `HOSTS_DOCUMENT`. The candidates below return — correctly named
 > per the add-edge skill — when a collector actually emits them.
+>
+> **Renamed 2026-09-10 (computing-core#4).** `HOSTED_BY` (document -> host) is now
+> `HOSTS_DOCUMENT` (host -> document — the host is the actor, so the direction flipped) and the
+> bare verb `FETCHES` is now `FETCHES_DOCUMENT`; both failed core's edge-naming check
+> (`req-tap-plugin-edge-naming`: trailing preposition, bare verb) and were renamed rather than
+> baselined. Migration `0003_retire_renamed_edge_types` deletes rows of the retired types on an
+> upgraded grid; the next collection / seed re-emits them under the new names. Consumers
+> (samsite's KEV seed + collector) move in their own follow-on.
 
 Representative relationship categories for v0 include:
 
@@ -365,12 +373,14 @@ Representative relationship categories for v0 include:
 | Runtime | `EXECUTES`, `SPAWNS`, `LISTENS_ON`, `CONNECTS_TO` | Runtime execution and endpoint/session relationships |
 | Networking | `HAS_IP`, `AVAILABLE_AT`, `BELONGS_TO_SUBNET`, `ROUTES_VIA` | Interface and address relationships, including scanner-visible observations |
 | Protocol | `USES_PROTOCOL`, `RELIES_ON_CONNECTION` | Protocol attachment and dependency |
-| Web (web-native) | `HOSTED_BY`, `FETCHES` | A `web_document -HOSTED_BY-> web_host`; any fetcher `-FETCHES-> web_document`. Both carry the `tap.web` marker. |
+| Web (web-native) | `HOSTS_DOCUMENT`, `FETCHES_DOCUMENT` | A `web_host -HOSTS_DOCUMENT-> web_document`; any fetcher `-FETCHES_DOCUMENT-> web_document`. Both carry the `tap.web` marker. |
 
-`FETCHES` deliberately leaves its source type as wildcard so any fetcher (a CI
+`FETCHES_DOCUMENT` deliberately leaves its source type as wildcard so any fetcher (a CI
 workflow, a program) can fetch a `web_document` without `computing_core`
 depending on the fetcher's owning plugin — e.g. a `github_workflow` (github_core)
-fetching the CISA KEV catalog. The instance wiring lives with the consumer.
+fetching the CISA KEV catalog. The instance wiring lives with the consumer. It takes no
+`_FROM`: the target IS the document fetched, not its origin (the skill's `PULLS_IMAGE`
+shape, not `RETRIEVES_CONTENT_FROM`).
 
 The exact edge set should remain expressive and specific enough that graph queries read naturally. Reuse matters, but v0 should lean toward semantic clarity rather than collapsing too much behavior into generic edges.
 
