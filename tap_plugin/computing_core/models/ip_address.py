@@ -26,21 +26,18 @@ class IpAddress(BaseModel):
         "name": {"type": "string"},
         "address": {"type": "string"},
         "version": {"type": "integer"},
-        "configuration": {"type": "object"},
     }
 
     FIELD_VALIDATION_SCHEMA: ClassVar[dict[str, Any]] = {
         "name": {"validation": "jsonschema", "schema": {"type": "string"}},
         "address": {"validation": "jsonschema", "schema": {"type": "string"}},
         "version": {"validation": "jsonschema", "schema": {"type": "integer", "enum": [4, 6]}},
-        "configuration": {"validation": "jsonschema", "schema": {"type": "object"}},
     }
     CREATE_REQUIRED: ClassVar[list[str]] = ["address"]
 
     name = models.CharField(max_length=255, blank=True, default="")
     address = models.GenericIPAddressField(db_index=True)
     version = models.PositiveSmallIntegerField(default=4)
-    configuration = models.JSONField(default=dict, blank=True)
 
     class Meta(BaseModel.Meta):
         db_table = "computing_core__ip_address"

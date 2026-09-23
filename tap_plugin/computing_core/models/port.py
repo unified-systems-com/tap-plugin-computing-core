@@ -43,7 +43,6 @@ class Port(BaseModel):
         },
         "transport": {"type": "string"},
         "state": {"type": "string"},
-        "configuration": {"type": "object"},
     }
 
     FIELD_VALIDATION_SCHEMA: ClassVar[dict[str, Any]] = {
@@ -60,7 +59,6 @@ class Port(BaseModel):
             "validation": "jsonschema",
             "schema": {"type": "string", "enum": ["listening", "bound", "connected", "closed", ""]},
         },
-        "configuration": {"validation": "jsonschema", "schema": {"type": "object"}},
     }
     CREATE_REQUIRED: ClassVar[list[str]] = ["transport"]
 
@@ -68,7 +66,6 @@ class Port(BaseModel):
     port_number = models.PositiveIntegerField(blank=True, null=True, db_index=True)
     transport = models.CharField(max_length=8, default="tcp")
     state = models.CharField(max_length=32, blank=True, default="")
-    configuration = models.JSONField(default=dict, blank=True)
 
     class Meta(BaseModel.Meta):
         db_table = "computing_core__port"

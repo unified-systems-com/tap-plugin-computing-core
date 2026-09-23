@@ -203,6 +203,12 @@ Relationship simplification for v0:
 
 This is intentionally simpler than trying to model every possible runtime or orchestration path on the first pass.
 
+No type carries a free-form `configuration` field. Eight types (`network_interface`, `ip_address`, `port`,
+`tcp_connection`, `program`, `file`, `public_key`, `private_key`) had one from the July 2026 monorepo
+extraction, but no collector fills it, and a verbatim record with no reader is only a place for secret
+material (a private key's, a config file's contents) or personal data to collect, so only promoted columns
+are stored. Migration `0004_drop_unused_configuration` removed it.
+
 #### Acceptance Criteria
 
 | ACID | Title | Status | Description | Notes |
@@ -213,6 +219,7 @@ This is intentionally simpler than trying to model every possible runtime or orc
 | req-computing-core-models-4 | Application Deferred | Proposed | The plugin does not define a generic `application` or `service` model in v0. | |
 | req-computing-core-models-5 | User Is Generic Person | Proposed | The plugin models a generic `user` person type; roles such as administrator are assigned relationships, not distinct node types. | `tap.computing: identity` |
 | req-computing-core-models-6 | Web-Native Primitives | Proposed | The plugin models `web_host` (internet host serving over HTTP(S)) and `web_document` (URL-addressed document), distinct from `file`. Both carry the `tap.web` marker. | Demo-time scope creep above the vendor-neutral line; see `req-computing-core-web-marker`. |
+| req-computing-core-models-7 | No Free-Form Record | Implemented | No type declares `configuration`, and a `create_node` write carrying it is refused. | `tests/test_no_free_form_record.py` |
 
 #### Open Questions
 

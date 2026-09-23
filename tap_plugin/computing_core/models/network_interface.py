@@ -43,7 +43,6 @@ class NetworkInterface(BaseModel):
             },
         },
         "state": {"type": "string"},
-        "configuration": {"type": "object"},
     }
 
     FIELD_VALIDATION_SCHEMA: ClassVar[dict[str, Any]] = {
@@ -53,7 +52,6 @@ class NetworkInterface(BaseModel):
         # null is not applied by jsonschema). A MAC is captured or unobserved, never "".
         "mac_address": {"validation": "jsonschema", "schema": {"type": ["string", "null"], "minLength": 1}},
         "state": {"validation": "jsonschema", "schema": {"type": "string"}},
-        "configuration": {"validation": "jsonschema", "schema": {"type": "object"}},
     }
     CREATE_REQUIRED: ClassVar[list[str]] = ["interface_name"]
 
@@ -67,7 +65,6 @@ class NetworkInterface(BaseModel):
         max_length=17, blank=True, null=True
     )
     state = models.CharField(max_length=32, blank=True, default="")
-    configuration = models.JSONField(default=dict, blank=True)
 
     class Meta(BaseModel.Meta):
         db_table = "computing_core__network_interface"
