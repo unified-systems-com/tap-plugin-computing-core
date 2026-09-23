@@ -27,7 +27,6 @@ class PublicKey(BaseModel):
         "algorithm": {"type": "string"},
         "key_size": {"type": ["integer", "null"]},
         "fingerprint": {"type": "string"},
-        "configuration": {"type": "object"},
     }
 
     FIELD_VALIDATION_SCHEMA: ClassVar[dict[str, Any]] = {
@@ -35,7 +34,6 @@ class PublicKey(BaseModel):
         "algorithm": {"validation": "jsonschema", "schema": {"type": "string"}},
         "key_size": {"validation": "jsonschema", "schema": {"type": ["integer", "null"]}},
         "fingerprint": {"validation": "jsonschema", "schema": {"type": "string"}},
-        "configuration": {"validation": "jsonschema", "schema": {"type": "object"}},
     }
     CREATE_REQUIRED: ClassVar[list[str]] = []
 
@@ -43,7 +41,6 @@ class PublicKey(BaseModel):
     algorithm = models.CharField(max_length=32, blank=True, default="")
     key_size = models.PositiveIntegerField(blank=True, null=True)
     fingerprint = models.CharField(max_length=255, blank=True, default="")
-    configuration = models.JSONField(default=dict, blank=True)
 
     class Meta(BaseModel.Meta):
         db_table = "computing_core__public_key"

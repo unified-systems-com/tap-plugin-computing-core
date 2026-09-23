@@ -27,7 +27,6 @@ class Program(BaseModel):
         "program_name": {"type": "string"},
         "version": {"type": "string"},
         "path": {"type": "string"},
-        "configuration": {"type": "object"},
     }
 
     FIELD_VALIDATION_SCHEMA: ClassVar[dict[str, Any]] = {
@@ -35,7 +34,6 @@ class Program(BaseModel):
         "program_name": {"validation": "jsonschema", "schema": {"type": "string"}},
         "version": {"validation": "jsonschema", "schema": {"type": "string"}},
         "path": {"validation": "jsonschema", "schema": {"type": "string"}},
-        "configuration": {"validation": "jsonschema", "schema": {"type": "object"}},
     }
     CREATE_REQUIRED: ClassVar[list[str]] = ["program_name"]
 
@@ -43,7 +41,6 @@ class Program(BaseModel):
     program_name = models.CharField(max_length=255, blank=True, default="", db_index=True)
     version = models.CharField(max_length=64, blank=True, default="")
     path = models.CharField(max_length=1024, blank=True, default="")
-    configuration = models.JSONField(default=dict, blank=True)
 
     class Meta(BaseModel.Meta):
         db_table = "computing_core__program"

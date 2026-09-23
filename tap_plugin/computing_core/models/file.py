@@ -27,7 +27,6 @@ class File(BaseModel):
         "file_path": {"type": "string"},
         "file_type": {"type": "string"},
         "version": {"type": "string"},
-        "configuration": {"type": "object"},
     }
 
     FIELD_VALIDATION_SCHEMA: ClassVar[dict[str, Any]] = {
@@ -35,7 +34,6 @@ class File(BaseModel):
         "file_path": {"validation": "jsonschema", "schema": {"type": "string"}},
         "file_type": {"validation": "jsonschema", "schema": {"type": "string"}},
         "version": {"validation": "jsonschema", "schema": {"type": "string"}},
-        "configuration": {"validation": "jsonschema", "schema": {"type": "object"}},
     }
     CREATE_REQUIRED: ClassVar[list[str]] = ["file_path"]
 
@@ -43,7 +41,6 @@ class File(BaseModel):
     file_path = models.CharField(max_length=1024, blank=True, default="", db_index=True)
     file_type = models.CharField(max_length=64, blank=True, default="")
     version = models.CharField(max_length=64, blank=True, default="")
-    configuration = models.JSONField(default=dict, blank=True)
 
     class Meta(BaseModel.Meta):
         db_table = "computing_core__file"
