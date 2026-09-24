@@ -93,7 +93,9 @@ class TestHostModel:
         host = _host(_node(HOST, {"asset_tag": "A-6", "name": "old-name"}))
         host.name = "new-name"
         host.save()
-        assert Host.find_existing(asset_tag="A-6").pk == host.pk
+        # The key is a column, so a rename leaves the row found by it. (Queried directly rather than
+        # through BaseModel.find_existing, which the plugin's requires_tap floor predates.)
+        assert list(Host.objects.filter(asset_tag="A-6").values_list("pk", flat=True)) == [host.pk]
 
     def test_display_name_falls_back_to_asset_tag(self):
         named = _host(_node(HOST, {"asset_tag": "A-7", "name": "build-01"}))
